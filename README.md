@@ -91,6 +91,29 @@ cnpm install classnames -S
 cnpm install @types/classnames -S
 ```
 
+## Alert 组件
+
+**需求分析**
+
+- 不同的alert type
+  - default
+  - primary
+  - danger
+  - warning
+- 描述信息 description string (可选)
+- 是否可关闭 closable boolean (可选)
+- 关闭时触发事件 onClose function (可选)
+- 关闭动画（暂未实现）
+
+**使用方法**
+
+```js
+<Alert title="This is Default" onClose={() => {console.log('closed')}} />
+<Alert title="This is Success" type={AlertType.Success} />
+<Alert title="This is Warning" description="this is a long description" type={AlertType.Warning} />
+<Alert closable={false} title="This is Danger" type={AlertType.Danger} />
+```
+
 ## 其他链接
 
 [reacthooks](https://usehooks.com/)

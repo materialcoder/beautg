@@ -1,0 +1,40 @@
+.alert {
+  position: relative;
+  // display: inline-block;
+  min-width: $alert-min-width;
+  color: $white;
+  background: $primary;
+  vertical-align: middle;
+  padding: $alert-padding-y $alert-padding-x;
+  border-radius: $alert-border-radius;
+  .bold-title {
+    font-weight: bold;
+  }
+  .alert-close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: $alert-padding-y $alert-padding-x;
+    cursor: pointer;
+  }
+  .alert-description {
+    margin-bottom: 0;
+    font-size: $small-font-size;
+  }
+}
+
+.alert-hiden {
+  display: none;
+}
+
+.alert-success {
+  background: $success;
+}
+
+.alert-warning {
+  background: $warning;
+}
+
+.alert-danger {
+  background: $danger;
+}
