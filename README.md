@@ -52,6 +52,45 @@ Components/
 - 边框和阴影
 - 可配置开关
 
+## Button 组件
+
+**需求分析**
+
+- 不同的button type
+  - primary
+  - default
+  - danger
+  - link button
+- 不同的size
+  - normal(middle)
+  - small
+  - large
+- disabled 状态
+
+**使用方法**
+
+```js
+<Button
+  size="lg"
+  type="primary"
+  disabled
+  href=""?
+  className=""?
+  autoFocus=""?
+>
+  beautg Button
+</Button>
+```
+
+**实现**
+
+安装 `classnames` 用来方便添加 `className`
+
+```shell
+cnpm install classnames -S
+cnpm install @types/classnames -S
+```
+
 ## 其他链接
 
 [reacthooks](https://usehooks.com/)
