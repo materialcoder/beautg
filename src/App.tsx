@@ -18,7 +18,7 @@ function App() {
         <Alert title="This is Success" type={AlertType.Success} />
         <Alert title="This is Warning" description="this is a long description" type={AlertType.Warning} />
         <Alert closable={false} title="This is Danger" type={AlertType.Danger} />
-        <Menu defaultIndex={0}>
+        <Menu defaultIndex={0} mode='vertical'>
           <MenuItem index={0}>cool link</MenuItem>
           <MenuItem index={1} disabled>cool link 2</MenuItem>
           <MenuItem index={2}>cool link 3</MenuItem>
