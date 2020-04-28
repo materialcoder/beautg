@@ -114,6 +114,12 @@ cnpm install @types/classnames -S
 <Alert closable={false} title="This is Danger" type={AlertType.Danger} />
 ```
 
+## 单元测试
+
+`jest`
+
+[testing-library](https://testing-library.com)
+
 ## 其他链接
 
 [reacthooks](https://usehooks.com/)
