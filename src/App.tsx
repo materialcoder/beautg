@@ -19,7 +19,7 @@ function App() {
         <Alert title="This is Success" type={AlertType.Success} />
         <Alert title="This is Warning" description="this is a long description" type={AlertType.Warning} />
         <Alert closable={false} title="This is Danger" type={AlertType.Danger} />
-        <Menu defaultIndex={0} mode="vertical">
+        <Menu defaultIndex='0' mode="vertical" defaultOpenSubMenus={['2']}>
           <MenuItem>cool link</MenuItem>
           <MenuItem disabled>cool link 2</MenuItem>
           <SubMenu title="dropdown">
