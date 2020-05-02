@@ -4,10 +4,13 @@ import Alert, { AlertType } from './components/Alert/alert';
 import MenuItem from './components/Menu/menuItem';
 import Menu from './components/Menu/menu';
 import SubMenu from './components/Menu/subMenu';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 
 function App() {
   return (
     <div className="App">
+      <FontAwesomeIcon icon={faCoffee} size="lg"/>
       <header className="App-header">
         <Button className="custom" onClick={(e) => {e.preventDefault();alert(123)}}>Default Button</Button>
         <Button btnType={ButtonType.Primary} size={ButtonSize.Large}>Primary Button</Button>

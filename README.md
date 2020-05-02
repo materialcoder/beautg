@@ -114,6 +114,14 @@ cnpm install @types/classnames -S
 <Alert closable={false} title="This is Danger" type={AlertType.Danger} />
 ```
 
+## react-fontawesome
+
+```shell
+cnpm install --save @fortawesome/fontawesome-svg-core
+cnpm install --save @fortawesome/free-solid-svg-icons
+cnpm install --save @fortawesome/react-fontawesome
+```
+
 ## 单元测试
 
 `jest`
