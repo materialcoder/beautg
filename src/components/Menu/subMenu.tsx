@@ -29,10 +29,10 @@ const SubMenu: React.FC<SubMenuProps> = ({index, title, children, className}) =>
   const handleMouse = (e: React.MouseEvent, toggle: boolean) => {
     clearTimeout(timer)
     e.preventDefault()
-    setOpen(toggle)
-    // timer = setTimeout(() => {
-    //   setOpen(toggle)
-    // }, 300)
+    // setOpen(toggle)
+    timer = setTimeout(() => {
+      setOpen(toggle)
+    }, 300)
   }
   const clickEvents = context.mode === 'vertical' ? {
     onClick: handleClick
