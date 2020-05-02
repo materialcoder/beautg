@@ -4,13 +4,20 @@ import Alert, { AlertType } from './components/Alert/alert';
 import MenuItem from './components/Menu/menuItem';
 import Menu from './components/Menu/menu';
 import SubMenu from './components/Menu/subMenu';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import Icon from './components/Icon/icon'
+
+// fas 引入所有图标
+library.add(fas)
 
 function App() {
   return (
     <div className="App">
-      <FontAwesomeIcon icon={faCoffee} size="lg"/>
+      {/* <FontAwesomeIcon icon={faCoffee} size="lg"/> */}
+      <Icon theme="danger" icon="arrow-down" size="10x" />
       <header className="App-header">
         <Button className="custom" onClick={(e) => {e.preventDefault();alert(123)}}>Default Button</Button>
         <Button btnType={ButtonType.Primary} size={ButtonSize.Large}>Primary Button</Button>
