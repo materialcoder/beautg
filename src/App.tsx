@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="App">
       {/* <FontAwesomeIcon icon={faCoffee} size="lg"/> */}
-      <Icon theme="danger" icon="arrow-down" size="10x" />
+      <Icon theme="primary" icon="arrow-down" size="10x" />
       <header className="App-header">
         <Button className="custom" onClick={(e) => {e.preventDefault();alert(123)}}>Default Button</Button>
         <Button btnType={ButtonType.Primary} size={ButtonSize.Large}>Primary Button</Button>
