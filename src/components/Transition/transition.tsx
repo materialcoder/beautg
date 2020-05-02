@@ -6,7 +6,8 @@ type AnimationName = 'zoom-in-top' | 'zoom-in-left' | 'zoom-in-right' | 'zoom-in
 
 // 4.2.4 之后CSSTransitionProps 变成了 type，不能再这么使用
 interface TransitionProps extends CSSTransitionProps{
-  animation?: AnimationName
+  animation?: AnimationName,
+  wrapper?: boolean
 }
 
 const Transition: React.FC<TransitionProps> = (props) => {
@@ -14,6 +15,7 @@ const Transition: React.FC<TransitionProps> = (props) => {
     children,
     classNames,
     animation,
+    wrapper,
     ...resetProps
   } = props
   return (
@@ -21,7 +23,7 @@ const Transition: React.FC<TransitionProps> = (props) => {
       classNames={classNames ? classNames : animation}
       {...resetProps}
     >
-      {children}
+      {wrapper ? <div>{children}</div>: children}
     </CSSTransition>
   )
 }
