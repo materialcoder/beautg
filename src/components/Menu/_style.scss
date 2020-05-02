@@ -29,6 +29,25 @@
       display: flex;
       align-items: center;
     }
+    .arrow-icon {
+      transition: transform .25s ease-in-out;
+      margin-left: 3px;
+    }
+    &:hover {
+      .arrow-icon {
+        transform: rotate(-180deg);
+      }
+    }
+  }
+  .is-vertical {
+    .arrow-icon {
+      transform: rotate(0) !important;
+    }
+  }
+  .is-vertical.is-opened {
+    .arrow-icon {
+      transform: rotate(-180deg) !important;
+    }
   }
   .beautg-submenu {
     display: none;
