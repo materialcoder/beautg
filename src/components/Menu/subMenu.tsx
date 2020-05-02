@@ -1,4 +1,5 @@
-import React, { useContext, useState, ReactText } from 'react'
+import React, { useContext, useState } from 'react'
+import {CSSTransition} from 'react-transition-group'
 import classNames from 'classnames'
 import { MenuContext } from './menu'
 import { MenuItemProps } from './menuItem';
@@ -28,9 +29,10 @@ const SubMenu: React.FC<SubMenuProps> = ({index, title, children, className}) =>
   const handleMouse = (e: React.MouseEvent, toggle: boolean) => {
     clearTimeout(timer)
     e.preventDefault()
-    timer = setTimeout(() => {
-      setOpen(toggle)
-    }, 300)
+    setOpen(toggle)
+    // timer = setTimeout(() => {
+    //   setOpen(toggle)
+    // }, 300)
   }
   const clickEvents = context.mode === 'vertical' ? {
     onClick: handleClick
@@ -54,9 +56,17 @@ const SubMenu: React.FC<SubMenuProps> = ({index, title, children, className}) =>
       }
     })
     return (
-      <ul className={submenuClasses}>
-        {childrenComponent}
-      </ul>
+      <CSSTransition
+        in={menuOpen}
+        timeout={300}
+        classNames="zoom-in-top"
+        appear
+        unmountOnExit
+      >
+        <ul className={submenuClasses}>
+          {childrenComponent}
+        </ul>
+      </CSSTransition>
     )
   }
   return (

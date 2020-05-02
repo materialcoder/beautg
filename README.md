@@ -114,12 +114,19 @@ cnpm install @types/classnames -S
 <Alert closable={false} title="This is Danger" type={AlertType.Danger} />
 ```
 
-## react-fontawesome
+## 图标 react-fontawesome
 
 ```shell
 cnpm install --save @fortawesome/fontawesome-svg-core
 cnpm install --save @fortawesome/free-solid-svg-icons
 cnpm install --save @fortawesome/react-fontawesome
+```
+
+## 动画 React Transition Group
+
+```shell
+cnpm install react-transition-group --save
+cnpm install --save @types/react-transition-group
 ```
 
 ## 单元测试
