@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {storiesOf} from '@storybook/react'
 import Input from './input'
 
+const ControlledInput = () => {
+  const [value, setValue] = useState('')
+  return <Input defaultValue={value} style={{width: '300px'}} value={value} onChange={(e)=>setValue(e.target.value)} />
+}
+
 const defaultInput = () => (
-  <Input
-    style={{width: '300px'}}
-    placeholder="placeholder"
-  />
+  <div>
+    <Input
+      style={{width: '300px'}}
+      placeholder="placeholder"
+    />
+    <ControlledInput />
+  </div>
 )
 
 const sizeInput = () => (

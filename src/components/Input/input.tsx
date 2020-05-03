@@ -1,4 +1,4 @@
-import React, { ReactElement, InputHTMLAttributes, FC } from 'react'
+import React, { ReactElement, InputHTMLAttributes, FC, ChangeEvent } from 'react'
 import Icon from '../Icon/icon'
 import classNames from 'classnames'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
@@ -17,6 +17,7 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLElement>, 'size
   prepend?: string | ReactElement
   /**添加后缀，用于配置一些固定组合 */
   append?: string | ReactElement
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 /**
@@ -45,6 +46,20 @@ export const Input: FC<InputProps> = (props) => {
     'input-group-append': !!append,
     'input-group-prepend': !!prepend
   })
+
+  // 解决useState中没有传入默认值
+  const fixControlledValue = (value: any) => {
+    if (typeof value === 'undefined' || value === null) {
+      return ''
+    }
+    return value
+  }
+
+  // 解决同时设置value和defaultValue
+  if ('value' in props) {
+    delete restProps.defaultValue
+    restProps.value = fixControlledValue(props.value)
+  }
 
   return (
     // 根据属性判断是否要添加特定的节点
