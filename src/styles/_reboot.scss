@@ -310,7 +310,12 @@ svg {
 // Prevent double borders
 
 table {
+  width: 100%;
   border-collapse: collapse;
+  tr, td, th {
+    padding: 4px 6px;
+    border: 1px solid #ccc;
+  }
 }
 
 caption {

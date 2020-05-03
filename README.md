@@ -149,6 +149,7 @@ npm config set registry https://registry.npm.taobao.org
 **Addon**
 
 - addon-info
+- react-docgen
 
 ## 单元测试
 
