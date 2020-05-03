@@ -129,6 +129,23 @@ cnpm install react-transition-group --save
 cnpm install --save @types/react-transition-group
 ```
 
+## storybook
+
+[storybook](https://storybook.js.org)
+
+```shell
+npx -p @storybook/cli sb init
+```
+
+> 科学上网或者使用淘宝镜像安装，否则可能安装失败
+
+```shell
+# 设置全局npm镜像
+npm config set registry https://registry.npm.taobao.org
+```
+
+> 使用CRA创建的项目，`storybook` 可以直接重用CRA对 `typescript` 的配置，不需要进行额外配置
+
 ## 单元测试
 
 `jest`
