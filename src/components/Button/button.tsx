@@ -7,8 +7,11 @@ export type ButtonType = 'primary' | 'default' | 'danger' | 'link'
 
 interface BaseButtonProps {
   className?: string
+  /**设置 Button 禁用 */
   disabled?:boolean
+  /**设置 Button 的尺寸 */
   size?:ButtonSize
+  /**设置 Button 的类型 */
   btnType?:ButtonType
   children: React.ReactNode,
   href?:string
@@ -21,6 +24,10 @@ type AnchorButtonProps = BaseButtonProps & AnchorHTMLAttributes<HTMLElement>
 // Partial 将所有属性都设置为可选的
 export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>
 
+/**
+ * 这是第一个Button组件
+ * ## Button Header 
+ */
 export const Button: FC<ButtonProps> = (props) => {
   const {
     btnType,

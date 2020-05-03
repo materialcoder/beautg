@@ -151,6 +151,10 @@ npm config set registry https://registry.npm.taobao.org
 - addon-info
 - react-docgen
 
+## jsdoc
+
+[jsdoc](https://devdocs.io/jsdoc)
+
 ## 单元测试
 
 `jest`
