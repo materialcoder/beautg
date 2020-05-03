@@ -146,6 +146,10 @@ npm config set registry https://registry.npm.taobao.org
 
 > 使用CRA创建的项目，`storybook` 可以直接重用CRA对 `typescript` 的配置，不需要进行额外配置
 
+**Addon**
+
+- addon-info
+
 ## 单元测试
 
 `jest`
