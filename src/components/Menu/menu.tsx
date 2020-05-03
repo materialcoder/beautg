@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react'
+import React, { FC, useState, createContext, FunctionComponentElement } from 'react'
 import classNames from 'classnames'
 import { MenuItemProps } from './menuItem';
 
@@ -6,11 +6,15 @@ type MenuMode = 'horizontal' | 'vertical'
 type SelectCallback = (selectedIndex: string) => void
 
 export interface MenuProps{
+  /**默认激活的菜单项 */
   defaultIndex?: string
   className?: string
+  /**描述菜单Menu排列方式 */
   mode?: MenuMode
   style?: React.CSSProperties
+  /**选择菜单时触发事件 */
   onSelect?: SelectCallback
+  /**描述默认打开第几个子菜单, 只针对纵向菜单有效 */
   defaultOpenSubMenus?: string[]
 }
 
@@ -23,7 +27,14 @@ interface IMenuContext {
 
 export const MenuContext = createContext<IMenuContext>({index: "0"})
 
-const Menu: React.FC<MenuProps> = (props) => {
+/**
+ * 菜单组件
+ * ## 引用方法
+ * ~~~js
+ * import { Menu, MenuItem } from 'beautg'
+ * ~~~ 
+ */
+export const Menu: FC<MenuProps> = (props) => {
   const { className, mode, style, children, defaultIndex, onSelect, defaultOpenSubMenus } = props
   const [ currentActive, setActive ] = useState(defaultIndex)
   const classes = classNames('beautg-menu', className, {
@@ -45,7 +56,7 @@ const Menu: React.FC<MenuProps> = (props) => {
 
   const renderChildren = () => {
     return React.Children.map(children, (child, index) => {
-      const childElement = child as React.FunctionComponentElement<MenuItemProps>
+      const childElement = child as FunctionComponentElement<MenuItemProps>
       const { displayName } = childElement.type
       if (displayName === 'MenuItem' || displayName === 'SubMenu') {
         // 给MenuItem自动添加index

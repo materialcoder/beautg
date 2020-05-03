@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import {CSSTransition} from 'react-transition-group'
 import classNames from 'classnames'
 import { MenuContext } from './menu'
@@ -8,11 +8,12 @@ import Transition from '../Transition/transition'
 
 export interface SubMenuProps {
   index?: string
+  /**描述子菜单标题 */
   title: string
   className?: string
 }
 
-const SubMenu: React.FC<SubMenuProps> = ({index, title, children, className}) => {
+export const SubMenu: FC<SubMenuProps> = ({index, title, children, className}) => {
   const context = useContext(MenuContext)
   const openSubMenus = context.defaultOpenSubMenus as Array<string>
   const isOpened = (index && context.mode === 'vertical') ? openSubMenus.includes(index) : false
