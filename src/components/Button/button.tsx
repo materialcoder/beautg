@@ -14,6 +14,7 @@ interface BaseButtonProps {
   /**设置 Button 的类型 */
   btnType?:ButtonType
   children: React.ReactNode,
+  /**设置 Link Button 跳转地址 */
   href?:string
 }
 
@@ -25,8 +26,11 @@ type AnchorButtonProps = BaseButtonProps & AnchorHTMLAttributes<HTMLElement>
 export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>
 
 /**
- * 这是第一个Button组件
- * ## Button Header 
+ * 页面中最常用的按钮元素，适用于完成特定的交互
+ * ## 引用方法
+ * ~~~js
+ * import { Button } from 'beautg
+ * ~~~ 
  */
 export const Button: FC<ButtonProps> = (props) => {
   const {
