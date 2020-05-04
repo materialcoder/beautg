@@ -8,6 +8,12 @@ import { action } from '@storybook/addon-actions'
 //   number?: number
 // }
 
+interface GithubUserProps {
+  value: string
+  login?: string
+  url?: string
+}
+
 const SimpleComplete = () => {
   // const lakers = ['bradey', 'james', 'pope', 'caruso', 'cook', 'sousions', 'AD', 'green', 'howard', 'kuzma', 'rando']
   // const lakersWithNumber = [
@@ -39,7 +45,7 @@ const SimpleComplete = () => {
   //   )
   // }
   const handleFetch = (query: string) => {
-    return fetch(`https://www.fastmock.site/mock/39b36ae70c5e82195f91f65661b6c008/test/lakers`)
+    return fetch(`https://api.github.com/search/users?q=${query}`)
       .then(res => res.json())
       .then(({items}) => {
         console.log(items)
@@ -49,11 +55,19 @@ const SimpleComplete = () => {
         }))
       })
   }
+  const renderOption = (item: DataSourceType<GithubUserProps>) => {
+    return (
+      <>
+        <h2>Name: {item.login}</h2>
+        <p>url: {item.url}</p>
+      </>
+    )
+  }
   return (
     <AutoComplete
       fetchSuggestion={handleFetch}
       onSelect={action('select')}
-      // renderOption={renderOption}
+      renderOption={renderOption}
     />
   )
 }
