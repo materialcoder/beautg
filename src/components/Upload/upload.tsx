@@ -17,13 +17,21 @@ export interface UploadFile {
 }
 
 export interface UploadProps {
+  /**上传地址 */
   action: string
+  /**默认文件列表 */
   defaultFileList?: UploadFile[]
+  /**上传之前的钩子函数，可用于判断文件类型和大小等 */
   beforeUpload?: (file: File) => boolean | Promise<File>
+  /**上传中 */
   onProgress?: (percentage: number, file: File) => void
+  /**上传成功 */
   onSuccess?: (data: any, file: File) => void
+  /**上传失败 */
   onError?: (err: any, file: File) => void
+  /**选择文件后 */
   onChange?: (file: File) => void
+  /**删除文件 */
   onRemove?: (file: UploadFile) => void
 }
 
