@@ -27,8 +27,13 @@ const SimpleUpload = () => {
     <Upload
       action="https://jsonplaceholder.typicode.com/posts"
       onChange={action('change')}
-      defaultFileList={defaultFileList}
+      // defaultFileList={defaultFileList}
       onRemove={action('removed')}
+      name='filename'
+      data={{'key': 'value'}}
+      headers={{'X-Powered-By': 'beautg'}}
+      accept=".png"
+      multiple={true}
       // beforeUpload={filePromise}
     />
   )

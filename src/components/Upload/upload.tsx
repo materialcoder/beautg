@@ -33,6 +33,18 @@ export interface UploadProps {
   onChange?: (file: File) => void
   /**删除文件 */
   onRemove?: (file: UploadFile) => void
+  /**自定义请求头 */
+  headers?: {[key: string]: any}
+  /**自定义文件名 */
+  name?: string
+  /**自定义上传数据 */
+  data?: {[key: string]: any}
+  /**是否携带cookie */
+  withCredentials?: boolean
+  /**允许上传的文件类型 */
+  accept?: string
+  /**是否允许上传多个文件 */
+  multiple?: boolean
 }
 
 export const Upload: FC<UploadProps> = (props) => {
@@ -44,7 +56,13 @@ export const Upload: FC<UploadProps> = (props) => {
     onSuccess,
     onError,
     onChange,
-    onRemove
+    onRemove,
+    headers,
+    name,
+    data,
+    withCredentials,
+    accept,
+    multiple
   } = props
   const fileInput = useRef<HTMLInputElement>(null)
   const [fileList, setFileList] = useState<UploadFile[]>(defaultFileList || [])
@@ -108,13 +126,24 @@ export const Upload: FC<UploadProps> = (props) => {
       percent: 0,
       raw: file
     }
-    setFileList([_file, ...fileList])
+    // setFileList([_file, ...fileList])
+    setFileList(prevList => {
+      return [_file, ...prevList]
+    })
     const formData = new FormData()
-    formData.append(file.name, file)
+    formData.append(name || 'file', file)
+    // 增加额外data
+    if (data) {
+      Object.keys(data).forEach(key => {
+        formData.append(key, data[key])
+      })
+    }
     axios.post(action, formData, {
       headers: {
+        ...headers,
         'Content-Type': 'multipart/form-data'
       },
+      withCredentials,
       onUploadProgress: (e) => {
         let percentage = Math.round((e.loaded * 100) / e.total) || 0
         if (percentage < 100) {
@@ -159,6 +188,8 @@ export const Upload: FC<UploadProps> = (props) => {
         style={{display: 'none'}}
         ref={fileInput}
         onChange={handleFileChange}
+        accept={accept}
+        multiple={multiple}
       />
       <UploadList
         fileList={fileList}
@@ -166,6 +197,10 @@ export const Upload: FC<UploadProps> = (props) => {
       />
     </div>
   )
+}
+
+Upload.defaultProps = {
+  name: 'file'
 }
 
 export default Upload
