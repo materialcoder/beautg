@@ -1,9 +1,15 @@
-import React, { FC, useState, ChangeEvent } from 'react'
+import React, { FC, useState, ChangeEvent, ReactElement } from 'react'
 import Input, { InputProps } from '../Input/input'
 
+interface DataSourceObject {
+  value: string
+}
+
+export type DataSourceType<T = {}> = T & DataSourceObject
 export interface AutoCompleteProps extends Omit<InputProps, 'onSelect'> {
-  fetchSuggestion: (str: string) => string[]
-  onSelect?: (item: string) => void
+  fetchSuggestion: (str: string) => DataSourceType[]
+  onSelect?: (item: DataSourceType) => void
+  renderOption?: (item: DataSourceType) => ReactElement
 }
 
 export const AutoComplete: FC<AutoCompleteProps> = (props) => {
@@ -11,10 +17,11 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     fetchSuggestion,
     onSelect,
     value,
+    renderOption,
     ...restProps
   } = props
   const [inputValue, setInputValue] = useState(value)
-  const [suggestions, setSuggestions] = useState<string[]>([])
+  const [suggestions, setSuggestions] = useState<DataSourceType[]>([])
   console.log(suggestions)
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim()
@@ -26,12 +33,15 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
       setSuggestions([])
     }
   }
-  const handleSelect = (item: string) => {
-    setInputValue(item)
+  const handleSelect = (item: DataSourceType) => {
+    setInputValue(item.value)
     setSuggestions([])
     if (onSelect) {
       onSelect(item)
     }
+  }
+  const renderTemplate = (item:DataSourceType) => {
+    return renderOption ? renderOption(item) : item.value
   }
   // 生成下拉菜单
   const generateDropdown = () => {
@@ -39,7 +49,9 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
       <ul>
         {suggestions.map((item, index) => {
           return (
-            <li key={index} onClick={() => handleSelect(item)}>{item}</li>
+            <li key={index} onClick={() => handleSelect(item)}>
+              {renderTemplate(item)}
+            </li>
           )
         })}
       </ul>
