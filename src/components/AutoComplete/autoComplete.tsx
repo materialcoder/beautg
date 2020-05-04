@@ -1,8 +1,9 @@
-import React, { FC, useState, ChangeEvent, KeyboardEvent, ReactElement, useEffect } from 'react'
+import React, { FC, useState, ChangeEvent, KeyboardEvent, ReactElement, useEffect, useRef } from 'react'
 import Input, { InputProps } from '../Input/input'
 import Icon from '../Icon/icon'
 import useDebounce from '../../hooks/useDebounce'
 import classNames from 'classnames'
+import useClickOutside from '../../hooks/useClickOutside'
 
 interface DataSourceObject {
   value: string
@@ -27,9 +28,14 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
   const [suggestions, setSuggestions] = useState<DataSourceType[]>([])
   const [loading, setLoading] = useState(false)
   const [highlightIndex, setHighlightIndex] = useState(-1)
+  const triggerSearch = useRef(false)
+  const componentRef = useRef<HTMLDivElement>(null)
   const debounceValue = useDebounce(inputValue, 500)
+  useClickOutside(componentRef, () => {
+    setSuggestions([])
+  })
   useEffect(() => {
-    if (debounceValue) {
+    if (debounceValue && triggerSearch.current) {
       const results = fetchSuggestion(debounceValue)
       if (results instanceof Promise) {
         console.log('trigger')
@@ -81,6 +87,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim()
     setInputValue(value)
+    triggerSearch.current = true
   }
   const handleSelect = (item: DataSourceType) => {
     setInputValue(item.value)
@@ -88,6 +95,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     if (onSelect) {
       onSelect(item)
     }
+    triggerSearch.current = false
   }
   const renderTemplate = (item:DataSourceType) => {
     return renderOption ? renderOption(item) : item.value
@@ -110,7 +118,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     )
   }
   return (
-    <div>
+    <div className="beautg-auto-complete" ref={componentRef}>
       <Input
         value={inputValue}
         onChange={handleChange}
