@@ -1,7 +1,7 @@
 import React, { FC, useRef, ChangeEvent, useState } from 'react'
 import axios from 'axios'
-import Button from '../Button/button'
 import UploadList from './uploadList'
+import Dragger from './dragger'
 
 export type UploadFileStatus = 'ready' | 'uploading' | 'success' | 'error'
 
@@ -45,6 +45,8 @@ export interface UploadProps {
   accept?: string
   /**是否允许上传多个文件 */
   multiple?: boolean
+  /**是否支持拖动上传 */
+  drag?: boolean
 }
 
 export const Upload: FC<UploadProps> = (props) => {
@@ -62,7 +64,9 @@ export const Upload: FC<UploadProps> = (props) => {
     data,
     withCredentials,
     accept,
-    multiple
+    multiple,
+    children,
+    drag
   } = props
   const fileInput = useRef<HTMLInputElement>(null)
   const [fileList, setFileList] = useState<UploadFile[]>(defaultFileList || [])
@@ -176,21 +180,25 @@ export const Upload: FC<UploadProps> = (props) => {
   console.log(fileList)
   return (
     <div className="beautg-upload-component">
-      <Button
-        btnType="primary"
+      <div
+        className="beautg-upload-input"
+        style={{display: 'inline-block'}}
         onClick={handleClick}
       >
-        Upload File
-      </Button>
-      <input
-        className="beautg-file-input"
-        type="file"
-        style={{display: 'none'}}
-        ref={fileInput}
-        onChange={handleFileChange}
-        accept={accept}
-        multiple={multiple}
-      />
+        {drag ? 
+          <Dragger onFile={(files) => {uploadFiles(files)}}>{children}</Dragger> : 
+          children
+        }
+        <input
+          className="beautg-file-input"
+          type="file"
+          style={{display: 'none'}}
+          ref={fileInput}
+          onChange={handleFileChange}
+          accept={accept}
+          multiple={multiple}
+        />
+      </div>
       <UploadList
         fileList={fileList}
         onRemove={handleRemove}

@@ -2,6 +2,8 @@ import React from 'react'
 import Upload, { UploadFile } from './upload'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
+import Button from '../Button/button'
+import Icon from '../Icon/icon'
 
 const defaultFileList: UploadFile[] = [
   {uid: '122', size: 1234, name: 'hello.md', status: 'uploading', percent: 10},
@@ -35,9 +37,34 @@ const SimpleUpload = () => {
       accept=".png"
       multiple={true}
       // beforeUpload={filePromise}
-    />
+    >
+      <Button btnType="primary">Upload File</Button>
+    </Upload>
+  )
+}
+
+const DragUpload = () => {
+  return (
+    <Upload
+      action="https://jsonplaceholder.typicode.com/posts"
+      onChange={action('change')}
+      // defaultFileList={defaultFileList}
+      onRemove={action('removed')}
+      name='filename'
+      data={{'key': 'value'}}
+      headers={{'X-Powered-By': 'beautg'}}
+      accept=".png"
+      multiple={true}
+      drag={true}
+      // beforeUpload={filePromise}
+    >
+      <Icon icon="upload" size="5x" theme="secondary" />
+      <br />
+      <p>Drag file over to upload</p>
+    </Upload>
   )
 }
 
 storiesOf('Upload Component', module)
   .add('Upload', SimpleUpload)
+  .add('Drag Upload', DragUpload)
