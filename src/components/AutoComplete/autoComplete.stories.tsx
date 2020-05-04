@@ -55,20 +55,20 @@ const SimpleComplete = () => {
         }))
       })
   }
-  const renderOption = (item: DataSourceType<GithubUserProps>) => {
-    return (
-      <p>{item.login}</p>
-      // <>
-      //   <h2>Name: {item.login}</h2>
-      //   <p>url: {item.url}</p>
-      // </>
-    )
-  }
+  // const renderOption = (item: DataSourceType<GithubUserProps>) => {
+  //   return (
+  //     <p>{item.login}</p>
+  //     // <>
+  //     //   <h2>Name: {item.login}</h2>
+  //     //   <p>url: {item.url}</p>
+  //     // </>
+  //   )
+  // }
   return (
     <AutoComplete
       fetchSuggestion={handleFetch}
       onSelect={action('select')}
-      renderOption={renderOption}
+      // renderOption={renderOption}
     />
   )
 }

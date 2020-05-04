@@ -4,6 +4,7 @@ import Icon from '../Icon/icon'
 import useDebounce from '../../hooks/useDebounce'
 import classNames from 'classnames'
 import useClickOutside from '../../hooks/useClickOutside'
+import Transition from '../Transition/transition'
 
 interface DataSourceObject {
   value: string
@@ -27,12 +28,14 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
   const [inputValue, setInputValue] = useState(value as string)
   const [suggestions, setSuggestions] = useState<DataSourceType[]>([])
   const [loading, setLoading] = useState(false)
+  const [showDropdown, setShowDropdown] = useState(false)
   const [highlightIndex, setHighlightIndex] = useState(-1)
   const triggerSearch = useRef(false)
   const componentRef = useRef<HTMLDivElement>(null)
   const debounceValue = useDebounce(inputValue, 500)
   useClickOutside(componentRef, () => {
-    setSuggestions([])
+    // setSuggestions([])
+    setShowDropdown(false)
   })
   useEffect(() => {
     if (debounceValue && triggerSearch.current) {
@@ -43,12 +46,19 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
         results.then(data => {
           setLoading(false)
           setSuggestions(data)
+          if (data.length > 0) {
+            setShowDropdown(true)
+          }
         })
       } else {
         setSuggestions(results)
+        if (results.length > 0) {
+          setShowDropdown(true)
+        }
       }
     } else {
-      setSuggestions([])
+      // setSuggestions([])
+      setShowDropdown(false)
     }
     setHighlightIndex(-1)
   }, [debounceValue])
@@ -78,7 +88,8 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
         break
       // esc
       case 27:
-        setSuggestions([])
+        // setSuggestions([])
+        setShowDropdown(false)
         break
       default:
         break
@@ -91,7 +102,8 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
   }
   const handleSelect = (item: DataSourceType) => {
     setInputValue(item.value)
-    setSuggestions([])
+    // setSuggestions([])
+    setShowDropdown(false)
     if (onSelect) {
       onSelect(item)
     }
@@ -103,18 +115,30 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
   // 生成下拉菜单
   const generateDropdown = () => {
     return (
-      <ul>
-        {suggestions.map((item, index) => {
-          const cnames = classNames('suggestion-item', {
-            'item-highlighted': index === highlightIndex
-          })
-          return (
-            <li key={index} className={cnames} onClick={() => handleSelect(item)}>
-              {renderTemplate(item)}
-            </li>
-          )
-        })}
-      </ul>
+      <Transition
+        in={showDropdown || loading}
+        animation="zoom-in-top"
+        timeout={300}
+        onExited={() => {setSuggestions([])}}
+      >
+        <ul className="beautg-suggestion-list">
+          {loading &&
+            <div className="suggestion-loading-icon">
+              <Icon icon="spinner" spin />
+            </div>
+          }
+          {suggestions.map((item, index) => {
+            const cnames = classNames('suggestion-item', {
+              'is-active': index === highlightIndex
+            })
+            return (
+              <li key={index} className={cnames} onClick={() => handleSelect(item)}>
+                {renderTemplate(item)}
+              </li>
+            )
+          })}
+        </ul>
+      </Transition>
     )
   }
   return (
@@ -125,8 +149,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
         onKeyDown={handleKeydown}
         {...restProps}
       />
-      {loading && <ul><Icon icon="spinner" spin /></ul>}
-      {(suggestions.length > 0) && generateDropdown()}
+      {generateDropdown()}
     </div>
   )
 }
