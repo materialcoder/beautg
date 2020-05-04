@@ -3,13 +3,25 @@ import Upload from './upload'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 
+const checkFileSize = (file: File) => {
+  if (Math.round(file.size / 1024) > 50) {
+    alert('file too big')
+    return false
+  }
+  return true
+}
+
+const filePromise = (file: File) => {
+  const newFile = new File([file], 'new_name.docx', {type: file.type})
+  return Promise.resolve(newFile)
+}
+
 const SimpleUpload = () => {
   return (
     <Upload
       action="https://jsonplaceholder.typicode.com/posts"
-      onProgress={action('progress')}
-      onSuccess={action('success')}
-      onError={action('error')}
+      onChange={action('change')}
+      beforeUpload={filePromise}
     />
   )
 }
