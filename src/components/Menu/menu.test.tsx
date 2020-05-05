@@ -1,9 +1,18 @@
 import React from 'react'
 import { render, RenderResult, fireEvent, cleanup, wait } from '@testing-library/react';
+import { config } from 'react-transition-group'
 import Menu from './menu';
 import MenuItem from './menuItem';
 import { MenuProps } from './menu';
 import SubMenu from './subMenu';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+
+// fas 引入所有图标
+library.add(fas)
+
+// 屏蔽transition带来的影响
+config.disabled = true
 
 const testProps: MenuProps = {
   defaultIndex: '0',
@@ -80,7 +89,7 @@ describe('test Menu and MenuItem component', () => {
     expect(menuElement).toHaveClass('menu-vertical')
   })
   it('should show dropdown items when hover on submenu', async () => {
-    expect(wrapper.queryByText('drop1')).not.toBeVisible()
+    expect(wrapper.queryByText('drop1')).not.toBeInTheDocument()
     const dropdownElement = wrapper.getByText('dropdown')
     fireEvent.mouseEnter(dropdownElement)
     // 解决异步问题
@@ -91,7 +100,7 @@ describe('test Menu and MenuItem component', () => {
     expect(testProps.onSelect).toHaveBeenCalledWith('3-0')
     fireEvent.mouseLeave(dropdownElement)
     await wait(() => {
-      expect(wrapper.queryByText('drop1')).not.toBeVisible()
+      expect(wrapper.queryByText('drop1')).not.toBeInTheDocument()
     })
   })
 
