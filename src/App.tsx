@@ -26,9 +26,9 @@ function App() {
         <Button btnType='link' href="https://www.baidu.com" disabled>Disabled Link</Button>
         <Button disabled>Disabled Button</Button>
         <Alert title="This is Default" onClose={() => {console.log('closed')}} />
-        <Alert title="This is Success" type={AlertType.Success} />
-        <Alert title="This is Warning" description="this is a long description" type={AlertType.Warning} />
-        <Alert closable={false} title="This is Danger" type={AlertType.Danger} />
+        <Alert title="This is Success" type="success" />
+        <Alert title="This is Warning" description="this is a long description" type="warning" />
+        <Alert closable={false} title="This is Danger" type="danger" />
         <Menu defaultIndex='0' defaultOpenSubMenus={['2']}>
           <MenuItem>cool link</MenuItem>
           <MenuItem disabled>cool link 2</MenuItem>
