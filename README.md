@@ -210,6 +210,26 @@ npm publish
 - 将 react 和 react-dom 放入 devDependencies中
 - 在 peerDependencies 中加入版本提示
 
+## 代码规范检查
+
+**代码规范检查**
+
+```shell
+eslint --ext js,ts,tsx src --max-warnings 5
+```
+
+**代码测试**
+
+```shell
+cross-env CI=true react-scripts test
+```
+
+## 小工具
+
+- rimraf 兼容Windows和iOS，相当于 rm -rf
+- cross-env 兼容Windows和iOS，跨平台设置环境
+- husky 支持pre-commit
+
 ## 其他链接
 
 [reacthooks](https://usehooks.com/)
