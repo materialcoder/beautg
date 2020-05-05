@@ -224,6 +224,25 @@ eslint --ext js,ts,tsx src --max-warnings 5
 cross-env CI=true react-scripts test
 ```
 
+## CI/CD
+
+**CI**
+
+- 频繁的将代码集成到主干（master）
+- 快速发现错误
+- 房主分支答复偏离主干
+
+**CD**
+
+持续交付、持续部署
+
+- 频繁的将软件的新版本，交付给质量团队或者用户
+- 代码通过评审后，自动部署到生产环境
+
+**Travis CI**
+
+[Travis](https://travis-ci.com)
+
 ## 小工具
 
 - rimraf 兼容Windows和iOS，相当于 rm -rf
