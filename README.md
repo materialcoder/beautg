@@ -206,6 +206,10 @@ npm whoami  # 查看是否登陆
 npm publish
 ```
 
+> 解决用户环境和包中react版本不同的问题
+- 将 react 和 react-dom 放入 devDependencies中
+- 在 peerDependencies 中加入版本提示
+
 ## 其他链接
 
 [reacthooks](https://usehooks.com/)
