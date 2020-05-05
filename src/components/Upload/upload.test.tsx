@@ -1,12 +1,12 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
-import { render, RenderResult, fireEvent, wait } from '@testing-library/react'
+import { render, RenderResult, fireEvent, wait, createEvent } from '@testing-library/react'
 import axios from 'axios'
 import Upload, { UploadProps } from './upload'
 
 jest.mock('../Icon/icon', () => {
-  return ({icon}) => {
-    return <span>{icon}</span>
+  return ({icon, onClick}) => {
+    return <span onClick={onClick}>{icon}</span>
   }
 })
 
@@ -18,6 +18,8 @@ const testProps: UploadProps = {
   action: 'fakeurl.com',
   onSuccess: jest.fn(),
   onChange: jest.fn(),
+  onRemove: jest.fn(),
+  drag: true,
 }
 
 let wrapper: RenderResult, fileInput: HTMLInputElement, uploadArea: HTMLElement
@@ -46,5 +48,32 @@ describe('test Upload component', () => {
     expect(queryByText('check-circle')).toBeInTheDocument()
     expect(testProps.onSuccess).toHaveBeenCalledWith('cool', testFile)
     expect(testProps.onChange).toHaveBeenCalledWith(testFile)
+    // remove uploaded file
+    expect(queryByText('times')).toBeInTheDocument()
+    fireEvent.click(queryByText('times') as HTMLElement)
+    expect(queryByText('test.png')).not.toBeInTheDocument()
+    expect(testProps.onRemove).toHaveBeenCalledWith(expect.objectContaining({
+      raw: testFile,
+      status: 'success',
+      name: 'test.png'
+    }))
+  })
+  it('drag and drop files should works fine', async () => {
+    fireEvent.dragOver(uploadArea)
+    expect(uploadArea).toHaveClass('is-dragover')
+    fireEvent.dragLeave(uploadArea)
+    expect(uploadArea).not.toHaveClass('is-dragover')
+    // fireEvent.drop(uploadArea, {dataTransfer: {files: [testFile]}})
+    const mockDropEvent = createEvent.drop(uploadArea)
+    Object.defineProperty(mockDropEvent, 'dataTransfer', {
+      value: {
+        files: [testFile]
+      }
+    })
+    fireEvent(uploadArea, mockDropEvent)
+    await wait(() => {
+      expect(wrapper.queryByText('test.png')).toBeInTheDocument()
+    })
+    expect(testProps.onSuccess).toHaveBeenCalledWith('cool', testFile)
   })
 })
