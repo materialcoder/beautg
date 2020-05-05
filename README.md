@@ -1,5 +1,9 @@
 ## 初始化项目
 
+```shell
+npx create-react-app demo template --typescript
+```
+
 **开启es-lint**
 
 根目录下创建 `.vscode/setting.json`
@@ -160,6 +164,18 @@ npm config set registry https://registry.npm.taobao.org
 `jest`
 
 [testing-library](https://testing-library.com)
+
+## npm link 测试
+
+在被引用的库中执行：
+```shell
+npm link
+```
+
+在需要引用的项目中执行：
+```shell
+npm link xxx
+```
 
 ## 其他链接
 
