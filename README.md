@@ -177,6 +177,35 @@ npm link
 npm link xxx
 ```
 
+## npm 上传
+
+> npm 不能使用镜像，否则会登录不上
+
+```shell
+# 设置会原镜像
+npm config set registry https://registry.npmjs.org
+```
+
+**注册或登录**
+```shell
+npm adduser
+npm whoami  # 查看是否登陆
+```
+
+**版本号**
+
+主版本号.次版本号.修订号
+
+- 主版本号 当做了不兼容的API修改
+- 次版本号 当做了向下兼容的功能性新增
+- 修订号 当做了向下兼容的问题修正
+
+**发布**
+
+```shell
+npm publish
+```
+
 ## 其他链接
 
 [reacthooks](https://usehooks.com/)
