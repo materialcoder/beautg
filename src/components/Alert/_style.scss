@@ -16,6 +16,11 @@
     right: 0;
     padding: $alert-padding-y $alert-padding-x;
     cursor: pointer;
+    transition: transform .3s ease-in-out;
+    &:hover {
+      transition: transform .3s ease-in-out;
+      transform: rotate(90deg);
+    }
   }
   .alert-description {
     margin-bottom: 0;

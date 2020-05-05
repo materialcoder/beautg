@@ -1,23 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState, FC } from 'react'
 import classNames from 'classnames'
+import Transition from '../Transition/transition'
+import Icon from '../Icon/icon'
 
-export enum AlertType {
-  Default='default',
-  Success='success',
-  Warning='warning',
-  Danger='danger'
-}
+// export enum AlertType {
+//   Default='default',
+//   Success='success',
+//   Warning='warning',
+//   Danger='danger'
+// }
+
+export type AlertType = 'default' | 'success' | 'warning' | 'danger'
 
 interface BaseAlertProps {
+  /**显示标题 */
   title: string
+  /**显示描述内容 */
   description?:string
   className?: string
-  type?: string
+  /**定义显示类型 */
+  type?: AlertType
+  /**是否可关闭 */
   closable?: boolean
+  /**关闭alert时触发事件 */
   onClose?: () => void
 }
 
-const Alert: React.FC<BaseAlertProps> = (props) => {
+export const Alert: FC<BaseAlertProps> = (props) => {
   const [showAlert, setShowAlert] = useState(true)
   const {
     title,
@@ -35,25 +44,31 @@ const Alert: React.FC<BaseAlertProps> = (props) => {
     setShowAlert(false)
     onClose && onClose()
   }
-
   return (
-    <>
-      {
-        showAlert ? (
-          <div className={classes}>
-            <span className={description ? "bold-title" : ''}>{title}</span>
-            {description ? <p className="alert-description">{description}</p> : ''}
-            {closable ? <div className="alert-close-btn" onClick={handleToggleClose}>关闭</div> : ''}
-          </div>)
-        : ''
-      }
-    </>
+    <Transition
+      in={showAlert}
+      timeout={300}
+      animation="zoom-in-top"
+    >
+      <div className={classes}>
+        <span className={description ? "bold-title" : ''}>{title}</span>
+        {description ? <p className="alert-description">{description}</p> : ''}
+        {closable && 
+          <div
+            className="alert-close-btn"
+            onClick={handleToggleClose}
+          >
+            <Icon icon="times" />
+          </div>
+        }
+      </div>
+    </Transition>
   )
 }
 
 Alert.defaultProps = {
   closable: true,
-  type: AlertType.Default
+  type: 'default'
 }
 
 export default Alert
