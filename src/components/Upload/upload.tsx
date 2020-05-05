@@ -177,7 +177,7 @@ export const Upload: FC<UploadProps> = (props) => {
       }
     })
   }
-  console.log(fileList)
+  // console.log(fileList)
   return (
     <div className="beautg-upload-component">
       <div

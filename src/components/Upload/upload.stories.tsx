@@ -46,14 +46,14 @@ const SimpleUpload = () => {
 const DragUpload = () => {
   return (
     <Upload
-      action="https://jsonplaceholder.typicode.com/posts"
+      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
       onChange={action('change')}
       // defaultFileList={defaultFileList}
       onRemove={action('removed')}
       name='filename'
       data={{'key': 'value'}}
       headers={{'X-Powered-By': 'beautg'}}
-      accept=".png"
+      // accept=".png"
       multiple={true}
       drag={true}
       // beforeUpload={filePromise}
