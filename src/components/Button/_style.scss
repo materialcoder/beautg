@@ -1,6 +1,7 @@
 .btn {
   position: relative;
   display: inline-block;
+  min-width: 38px;
   font-weight: $btn-font-weight;
   line-height: $btn-line-height;
   color: $body-color;
@@ -9,6 +10,9 @@
   vertical-align: middle;
   background-image: none;
   border: $btn-border-width solid transparent;
+  outline: 0;
+  margin-right: 8px;
+  margin-bottom: 12px;
   @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $border-radius);
   // padding: $btn-padding-y $btn-padding-x;
   // font-size: $btn-font-size;
@@ -16,6 +20,9 @@
   box-shadow: $btn-box-shadow;
   cursor: pointer;
   transition: $btn-transition;
+  &:active, &:focus {
+    outline: 0;
+  }
   &.disabled,
   &[disabled] {
     cursor: not-allowed;
@@ -36,15 +43,25 @@
 }
 
 .btn-primary {
-  @include button-style($primary, $primary, $white)
+  @include button-style($primary, $primary, $white);
+  &.is-danger {
+    @include button-style($danger, $danger, $white);
+  }
 }
 
-.btn-danger {
-  @include button-style($danger, $danger, $white)
+.btn-dashed {
+  @include button-style($white, $gray-400, $body-color, $white, $primary, $primary, dashed);
+  &.is-danger {
+    @include button-style($white, $danger, $danger);
+    border-style: dashed !important;
+  }
 }
 
 .btn-default {
-  @include button-style($white, $gray-400, $body-color, $white, $primary, $primary)
+  @include button-style($white, $gray-400, $body-color, $white, $primary, $primary);
+  &.is-danger {
+    @include button-style($white, $danger, $danger)
+  }
 }
 
 .btn-link {
@@ -66,4 +83,15 @@
     color: $btn-link-disabled-color;
     pointer-events: none;
   }
+  &.is-danger {
+    color: $danger;
+  }
+}
+
+.btn-circle {
+  border-radius: 50%;
+}
+
+.btn-round {
+  border-radius: 38px;
 }

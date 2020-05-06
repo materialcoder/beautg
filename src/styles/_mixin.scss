@@ -11,10 +11,12 @@
   $hover-background: lighten($background, 7.5%),
   $hover-border: lighten($border, 10%),
   $hover-color: $color,
+  $border-style: solid
 ) {
   color: $color;
   background: $background;
   border-color: $border;
+  border-style: $border-style;
   &:hover {
     color: $hover-color;
     background:$hover-background;

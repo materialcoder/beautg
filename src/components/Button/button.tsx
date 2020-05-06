@@ -3,7 +3,9 @@ import classNames from 'classnames'
 
 export type ButtonSize = 'lg' | 'sm'
 
-export type ButtonType = 'primary' | 'default' | 'danger' | 'link'
+export type ButtonType = 'primary' | 'default' | 'dashed' | 'link'
+
+export type ButtonShape = 'circle' | 'round'
 
 interface BaseButtonProps {
   className?: string
@@ -13,6 +15,10 @@ interface BaseButtonProps {
   size?:ButtonSize
   /**设置 Button 的类型 */
   btnType?:ButtonType
+  /**设置危险按钮 */
+  danger?: boolean
+  /**设置按钮形状 */
+  shape?: ButtonShape
   children: React.ReactNode,
   /**设置 Link Button 跳转地址 */
   href?:string
@@ -40,6 +46,8 @@ export const Button: FC<ButtonProps> = (props) => {
     size,
     children,
     href,
+    danger,
+    shape,
     ...restProps
   } = props
 
@@ -47,6 +55,8 @@ export const Button: FC<ButtonProps> = (props) => {
   const classes = classNames('btn', className, {
     [`btn-${btnType}`]: btnType,
     [`btn-${size}`]: size,
+    [`btn-${shape}`]: shape,
+    'is-danger': danger,
     'disabled': (btnType === 'link') && disabled
   })
 
