@@ -20,6 +20,17 @@ const typeAlert = () => {
   )
 }
 
+const iconAlert = () => {
+  return (
+    <div>
+      <Alert title="default alert" showIcon /><br/>
+      <Alert title="success alert" showIcon type="success" /><br/>
+      <Alert title="warning alert" showIcon type="warning" /><br/>
+      <Alert title="danger alert" showIcon type="danger" /><br/>
+    </div>
+  )
+}
+
 const descriptionAlert = () => {
   return (
     <Alert
@@ -45,8 +56,9 @@ const closeableAlert = () => {
   )
 }
 
-storiesOf('Alert COmponent', module)
+storiesOf('Alert Component', module)
  .add('Alert', defaultAlert)
  .add('不同样式 Alert', typeAlert)
  .add('带描述的 Alert', descriptionAlert)
  .add('是否可关闭 Alert', closeableAlert)
+ .add('带Icon的 Alert', iconAlert)

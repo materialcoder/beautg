@@ -22,6 +22,8 @@ interface BaseAlertProps {
   type?: AlertType
   /**是否可关闭 */
   closable?: boolean
+  /**是否显示辅助图标 */
+  showIcon?: boolean
   /**关闭alert时触发事件 */
   onClose?: () => void
 }
@@ -34,6 +36,7 @@ export const Alert: FC<BaseAlertProps> = (props) => {
     className,
     type,
     closable,
+    showIcon,
     onClose
   } = props
   const classes = classNames('alert', className, {
@@ -51,6 +54,15 @@ export const Alert: FC<BaseAlertProps> = (props) => {
       animation="zoom-in-top"
     >
       <div className={classes}>
+        {(showIcon && (type === 'default' || type === 'warning')) &&
+          <span className="alert-icon"><Icon icon="info-circle" /></span>
+        }
+        {(showIcon && type === "success") &&
+          <span className="alert-icon"><Icon icon="check-circle" /></span>
+        }
+        {(showIcon && type === "danger") &&
+          <span className="alert-icon"><Icon icon="times-circle" /></span>
+        }
         <span className={description ? "bold-title" : ''}>{title}</span>
         {description ? <p className="alert-description">{description}</p> : ''}
         {closable && 

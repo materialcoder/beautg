@@ -7,6 +7,10 @@
   vertical-align: middle;
   padding: $alert-padding-y $alert-padding-x;
   border-radius: $alert-border-radius;
+  .alert-icon {
+    display: inline-block;
+    margin-right: 4px;
+  }
   .bold-title {
     font-weight: bold;
   }
