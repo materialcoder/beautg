@@ -1,0 +1,47 @@
+.beautg-tabs {
+  .tabs-nav {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    border-bottom: $menu-border-width solid $gray-400;
+    .tabs-nav-item {
+      padding: $menu-item-padding-y $menu-item-padding-x;
+      border-bottom: $menu-item-active-border-width solid transparent;
+      margin-right: 4px;
+      margin-bottom: -$menu-border-width;
+      box-sizing: border-box;
+      cursor: pointer;
+      &.is-actived {
+        color: $menu-item-active-color;
+        border-bottom: $menu-item-active-border-width solid $menu-item-active-color;
+      }
+      &.is-disabled {
+        color: $menu-item-disabled-color;
+        // pointer-events: none;
+        cursor: not-allowed;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+      &.is-card {
+        border: $menu-border-width solid $gray-400;
+        border-top-left-radius: $btn-border-radius;
+        border-top-right-radius: $btn-border-radius;
+        // border-bottom: 0;
+        &.is-actived {
+          border-bottom-color: $body-bg;
+        }
+      }
+    }
+  }
+  .tabs-content {
+    width: 100%;
+    .tabs-content-item {
+      padding-top: 10px;
+      display: none;
+      &.is-actived {
+        display: block;
+      }
+    }
+  }
+}
