@@ -1,11 +1,11 @@
 import React from 'react'
-import Upload, { UploadFile } from './upload'
+import Upload from './upload'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import Button from '../Button/button'
 import Icon from '../Icon/icon'
 
-const defaultFileList: UploadFile[] = [
+/* const defaultFileList: UploadFile[] = [
   {uid: '122', size: 1234, name: 'hello.md', status: 'uploading', percent: 10},
   {uid: '123', size: 1234, name: 'zxz.md', status: 'success', percent: 20},
   {uid: '124', size: 1234, name: 'zsq.md', status: 'error', percent: 30},
@@ -22,7 +22,7 @@ const checkFileSize = (file: File) => {
 const filePromise = (file: File) => {
   const newFile = new File([file], 'new_name.docx', {type: file.type})
   return Promise.resolve(newFile)
-}
+} */
 
 const SimpleUpload = () => {
   return (
